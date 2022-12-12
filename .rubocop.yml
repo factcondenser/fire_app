@@ -1,0 +1,70 @@
+require:
+  - rubocop-rails
+  - rubocop-rspec
+
+AllCops:
+  NewCops: enable
+  Exclude:
+    - bin/{bundle,dev,importmap,rails,rspec,rake,setup}
+    - db/migrate/**/*
+    - db/schema.rb
+
+# Commonly used screens these days easily fit more than 80 characters.
+Layout/LineLength:
+  Max: 160
+
+# Shadowing outer local variables with block parameters is often useful
+# to not reinvent a new name for the same thing, it highlights the relation
+# between the outer variable and the parameter. The cases where it's actually
+# confusing are rare, and usually bad for other reasons already, for example
+# because the method is too long.
+Lint/ShadowingOuterLocalVariable:
+  Enabled: false
+
+# Config blocks can be long; better not to break them up.
+Metrics/BlockLength:
+  Exclude:
+    - config/environments/development.rb
+
+# Too short methods lead to extraction of single-use methods, which can make
+# the code easier to read (by naming things), but can also clutter the class.
+Metrics/MethodLength:
+  Max: 20
+
+# This looks cleaner.
+Rails/FilePath:
+  EnforcedStyle: arguments
+
+# Allow writing to stdout in sample and seed tasks.
+Rails/Output:
+  Exclude:
+    - db/sample/**/*
+    - db/seeds.rb
+
+RSpec/ImplicitSubject:
+  EnforcedStyle: single_statement_only
+
+# Let some non-ascii chars through.
+Style/AsciiComments:
+  AllowedChars: [€]
+
+# `inject` seems more common in the community.
+Style/CollectionMethods:
+  Enabled: true
+  PreferredMethods:
+    reduce: "inject"
+
+# Check with YARD instead.
+Style/Documentation:
+  Enabled: false
+
+# Mixing the styles looks just silly.
+Style/HashSyntax:
+  EnforcedStyle: ruby19_no_mixed_keys
+
+# do / end blocks should be used for side effects.
+# Methods that run a block for side effects and have
+# a useful return value are rare, assign the return
+# value to a local variable for those cases.
+Style/MethodCalledOnDoEndBlock:
+  Enabled: true
