@@ -58,6 +58,10 @@ Style/CollectionMethods:
 Style/Documentation:
   Enabled: false
 
+# See https://web.archive.org/web/20220819043854/https://www.jakeworth.com/frozen-string-comment-yagni/
+Style/FrozenStringLiteralComment:
+  EnforcedStyle: 'never'
+
 # Mixing the styles looks just silly.
 Style/HashSyntax:
   EnforcedStyle: ruby19_no_mixed_keys
