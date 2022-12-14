@@ -28,10 +28,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_13_053940) do
     t.bigint "amount_cents", null: false
     t.string "description", limit: 255
     t.uuid "user_id", null: false
-    t.uuid "expense_category_id", null: false
+    t.uuid "category_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["expense_category_id"], name: "index_expenses_on_expense_category_id"
+    t.index ["category_id"], name: "index_expenses_on_category_id"
     t.index ["user_id"], name: "index_expenses_on_user_id"
   end
 
@@ -48,25 +48,25 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_13_053940) do
     t.bigint "amount_cents", null: false
     t.string "description", limit: 255
     t.uuid "user_id", null: false
-    t.uuid "income_category_id", null: false
+    t.uuid "category_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["income_category_id"], name: "index_incomes_on_income_category_id"
+    t.index ["category_id"], name: "index_incomes_on_category_id"
     t.index ["user_id"], name: "index_incomes_on_user_id"
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email", null: false
-    t.string "password", null: false
+    t.string "password_digest", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
   add_foreign_key "expense_categories", "expense_categories", column: "parent_id"
-  add_foreign_key "expenses", "expense_categories"
+  add_foreign_key "expenses", "expense_categories", column: "category_id"
   add_foreign_key "expenses", "users"
   add_foreign_key "income_categories", "income_categories", column: "parent_id"
-  add_foreign_key "incomes", "income_categories"
+  add_foreign_key "incomes", "income_categories", column: "category_id"
   add_foreign_key "incomes", "users"
 end
