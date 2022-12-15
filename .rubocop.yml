@@ -38,7 +38,7 @@ Rails/FilePath:
 # Allow writing to stdout in sample and seed tasks.
 Rails/Output:
   Exclude:
-    - db/sample/**/*
+    - app/samples/**/*
     - db/seeds.rb
 
 RSpec/ImplicitSubject:
