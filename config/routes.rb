@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :labelings
   resources :labels
   resources :expenses
   resources :users

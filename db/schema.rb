@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_17_153500) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_17_155442) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -27,12 +27,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_17_153500) do
   create_table "expenses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "amount_cents", null: false
     t.string "description", limit: 255
+    t.datetime "incurred_at", null: false
     t.uuid "user_id", null: false
     t.uuid "category_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["category_id"], name: "index_expenses_on_category_id"
-    t.index ["user_id"], name: "index_expenses_on_user_id"
+    t.index ["user_id", "category_id", "incurred_at"], name: "index_expenses_on_user_id_and_category_id_and_incurred_at"
+    t.index ["user_id", "incurred_at"], name: "index_expenses_on_user_id_and_incurred_at"
   end
 
   create_table "income_categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -47,12 +48,24 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_17_153500) do
   create_table "incomes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "amount_cents", null: false
     t.string "description", limit: 255
+    t.datetime "incurred_at", null: false
     t.uuid "user_id", null: false
     t.uuid "category_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["category_id"], name: "index_incomes_on_category_id"
-    t.index ["user_id"], name: "index_incomes_on_user_id"
+    t.index ["user_id", "category_id", "incurred_at"], name: "index_incomes_on_user_id_and_category_id_and_incurred_at"
+    t.index ["user_id", "incurred_at"], name: "index_incomes_on_user_id_and_incurred_at"
+  end
+
+  create_table "labelings", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.uuid "label_id", null: false
+    t.uuid "labelable_id", null: false
+    t.string "labelable_type", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["labelable_id"], name: "index_labelings_on_labelable_id"
+    t.index ["user_id", "label_id"], name: "index_labelings_on_user_id_and_label_id"
   end
 
   create_table "labels", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -76,4 +89,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_17_153500) do
   add_foreign_key "income_categories", "income_categories", column: "parent_id"
   add_foreign_key "incomes", "income_categories", column: "category_id"
   add_foreign_key "incomes", "users"
+  add_foreign_key "labelings", "labels"
+  add_foreign_key "labelings", "users"
 end
