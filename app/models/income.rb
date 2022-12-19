@@ -5,6 +5,7 @@ class Income < ApplicationRecord
   belongs_to :user
   belongs_to :category, class_name: 'IncomeCategory'
   has_many :labelings, as: :labelable, dependent: :destroy
+  has_many :labels, through: :labelings
 
   monetize :amount_cents, numericality: { greater_than: 0 }
 

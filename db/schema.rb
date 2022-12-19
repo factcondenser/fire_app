@@ -58,14 +58,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_17_155442) do
   end
 
   create_table "labelings", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "user_id", null: false
     t.uuid "label_id", null: false
     t.uuid "labelable_id", null: false
     t.string "labelable_type", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["label_id"], name: "index_labelings_on_label_id"
     t.index ["labelable_id"], name: "index_labelings_on_labelable_id"
-    t.index ["user_id", "label_id"], name: "index_labelings_on_user_id_and_label_id"
   end
 
   create_table "labels", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -90,5 +89,4 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_17_155442) do
   add_foreign_key "incomes", "income_categories", column: "category_id"
   add_foreign_key "incomes", "users"
   add_foreign_key "labelings", "labels"
-  add_foreign_key "labelings", "users"
 end

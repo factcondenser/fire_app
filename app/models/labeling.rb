@@ -1,7 +1,8 @@
 class Labeling < ApplicationRecord
-  belongs_to :user
+  LABELABLE_TYPES = %w[Expense Income].freeze
+
   belongs_to :label
   belongs_to :labelable, polymorphic: true
 
-  validates :labelable_type, inclusion: { in: %w[Expense Income] }
+  validates :labelable_type, inclusion: { in: LABELABLE_TYPES }
 end

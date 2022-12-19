@@ -4,6 +4,7 @@ RSpec.describe Expense do
   it { is_expected.to belong_to(:user) }
   it { is_expected.to belong_to(:category).class_name('ExpenseCategory') }
   it { is_expected.to have_many(:labelings).dependent(:destroy) }
+  it { is_expected.to have_many(:labels).through(:labelings) }
   it { is_expected.to monetize(:amount) }
   it { is_expected.to validate_length_of(:description).is_at_most(255) }
 
