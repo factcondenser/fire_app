@@ -1,9 +1,9 @@
 FactoryBot.define do
   factory :expense_category do
-    name { Faker::Commerce.department }
+    name { Faker::Lorem.unique.words(number: rand(1..3)) }
 
     trait :with_parent do
-      association :parent, factory: :expense_category
+      parent factory: :expense_category
     end
   end
 end

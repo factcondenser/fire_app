@@ -3,7 +3,7 @@ FactoryBot.define do
     name { Faker::Company.name }
 
     trait :with_parent do
-      association :parent, factory: :income_category
+      parent factory: :income_category
     end
   end
 end

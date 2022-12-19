@@ -1,6 +1,6 @@
 namespace :sample do
   desc 'Loads sample expenses'
-  task expenses: %i[sample db:seed] do
-    SampleExpense.load(ARGV)
+  task expenses: :sample do
+    SampleExpense.load(count: ARGV[0])
   end
 end

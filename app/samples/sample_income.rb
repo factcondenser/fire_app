@@ -1,9 +1,9 @@
-class SampleExpense < ApplicationSample
-  DEPENDENCIES = %w[User ExpenseCategory].freeze
+class SampleIncome < ApplicationSample
+  DEPENDENCIES = %w[User IncomeCategory].freeze
 
   def load
     count.times do
-      create(:expense, user_id: random_user_id, category_id: random_category_id)
+      create(:income, user_id: random_user_id, category_id: random_category_id)
     end
   end
 
@@ -16,7 +16,7 @@ class SampleExpense < ApplicationSample
 
   def random_category_id
     random_category_offset = rand(category_count)
-    ExpenseCategory.offset(random_category_offset).pick(:id)
+    IncomeCategory.offset(random_category_offset).pick(:id)
   end
 
   def user_count
@@ -24,6 +24,6 @@ class SampleExpense < ApplicationSample
   end
 
   def category_count
-    @category_count ||= ExpenseCategory.count
+    @category_count ||= IncomeCategory.count
   end
 end

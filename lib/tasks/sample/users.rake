@@ -1,6 +1,6 @@
 namespace :sample do
   desc 'Loads sample users'
   task users: :sample do
-    SampleUser.load(ARGV)
+    SampleUser.load(count: ARGV[0])
   end
 end

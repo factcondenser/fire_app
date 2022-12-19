@@ -2,21 +2,33 @@ class ApplicationSample
   include FactoryBot::Syntax::Methods
 
   DEFAULT_COUNT = 1
+  DEPENDENCIES = [].freeze
 
-  def self.load(argv)
-    abort('ERROR: Sample rake tasks only accept one argument - the number of samples to load') if argv.length > 1
+  class << self
+    def load(count:)
+      abort("ERROR: Loading #{klass.name} samples requires that at least one record exist for each of the following - #{dependencies}") unless valid?
 
-    before = klass.count
-    new(argv[0]).load
-    after = klass.count
+      before = klass.count
+      new(count).load
+      after = klass.count
 
-    puts "Loaded #{after - before} #{klass} sample(s) - new count: #{after}"
+      puts "Loaded #{after - before} #{klass} sample(s) - new count: #{after}"
+    end
+
+    private
+
+    def valid?
+      dependencies.all? { |dep| dep.constantize.exists? }
+    end
+
+    def dependencies
+      self::DEPENDENCIES
+    end
+
+    def klass
+      @klass ||= name.delete_prefix('Sample').constantize
+    end
   end
-
-  def self.klass
-    @klass ||= name.delete_prefix('Sample').constantize
-  end
-  private_class_method :klass
 
   def initialize(count)
     @count = parse_count(count)
