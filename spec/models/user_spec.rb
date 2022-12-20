@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe User do
   subject { build(:user) }
 
+  it { is_expected.to have_secure_password }
   it { is_expected.to have_many(:expense_categories).dependent(:destroy) }
   it { is_expected.to have_many(:income_categories).dependent(:destroy) }
   it { is_expected.to have_many(:expenses).dependent(:destroy) }
@@ -10,5 +11,4 @@ RSpec.describe User do
   it { is_expected.to have_many(:labels).dependent(:destroy) }
   it { is_expected.to validate_presence_of(:email) }
   it { is_expected.to validate_uniqueness_of(:email) }
-  it { is_expected.to have_secure_password }
 end
