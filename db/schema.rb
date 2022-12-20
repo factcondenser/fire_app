@@ -18,10 +18,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_17_155442) do
   create_table "expense_categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", limit: 63, null: false
     t.uuid "parent_id"
+    t.uuid "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["name", "parent_id"], name: "index_expense_categories_on_name_and_parent_id", unique: true
     t.index ["parent_id"], name: "index_expense_categories_on_parent_id"
+    t.index ["user_id", "name", "parent_id"], name: "index_expense_categories_on_user_id_and_name_and_parent_id", unique: true
   end
 
   create_table "expenses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -39,10 +40,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_17_155442) do
   create_table "income_categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", limit: 63, null: false
     t.uuid "parent_id"
+    t.uuid "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["name", "parent_id"], name: "index_income_categories_on_name_and_parent_id", unique: true
     t.index ["parent_id"], name: "index_income_categories_on_parent_id"
+    t.index ["user_id", "name", "parent_id"], name: "index_income_categories_on_user_id_and_name_and_parent_id", unique: true
   end
 
   create_table "incomes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -69,9 +71,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_17_155442) do
 
   create_table "labels", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", limit: 63, null: false
+    t.uuid "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_labels_on_name", unique: true
+    t.index ["user_id", "name"], name: "index_labels_on_user_id_and_name", unique: true
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -83,10 +86,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_17_155442) do
   end
 
   add_foreign_key "expense_categories", "expense_categories", column: "parent_id"
+  add_foreign_key "expense_categories", "users"
   add_foreign_key "expenses", "expense_categories", column: "category_id"
   add_foreign_key "expenses", "users"
   add_foreign_key "income_categories", "income_categories", column: "parent_id"
+  add_foreign_key "income_categories", "users"
   add_foreign_key "incomes", "income_categories", column: "category_id"
   add_foreign_key "incomes", "users"
   add_foreign_key "labelings", "labels"
+  add_foreign_key "labels", "users"
 end

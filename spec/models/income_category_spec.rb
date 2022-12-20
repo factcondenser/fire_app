@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe IncomeCategory do
   subject { create(:income_category, :with_parent) }
 
+  it { is_expected.to belong_to(:user) }
   it { is_expected.to belong_to(:parent).class_name('IncomeCategory').optional }
 
   it {

@@ -3,7 +3,8 @@ class CreateIncomeCategories < ActiveRecord::Migration[7.0]
     create_table :income_categories, id: :uuid do |t|
       t.string :name, null: false, limit: 63
       t.references :parent, type: :uuid, foreign_key: { to_table: :income_categories }
-      t.index [:name, :parent_id], unique: true
+      t.references :user, type: :uuid, null: false, foreign_key: true, index: false
+      t.index [:user_id, :name, :parent_id], unique: true
 
       t.timestamps
     end

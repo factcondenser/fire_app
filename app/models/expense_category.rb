@@ -20,6 +20,7 @@ class ExpenseCategory < ApplicationRecord
     DEFAULT_CATEGORY => []
   }.freeze
 
+  belongs_to :user
   belongs_to :parent, class_name: 'ExpenseCategory', optional: true
   has_many :subcategories, class_name: 'ExpenseCategory', foreign_key: :parent_id, inverse_of: :parent,
                            dependent: :destroy

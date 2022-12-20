@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Label do
   subject { create(:label) }
 
+  it { is_expected.to belong_to(:user) }
   it { is_expected.to have_many(:labelings).dependent(:destroy) }
   it { is_expected.to have_many(:expenses).through(:labelings).source(:labelable) }
   it { is_expected.to have_many(:incomes).through(:labelings).source(:labelable) }

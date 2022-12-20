@@ -9,8 +9,9 @@ class IncomeCategory < ApplicationRecord
     'Wages' => [],
     'Real Estate' => [],
     DEFAULT_CATEGORY => []
-  }
+  }.freeze
 
+  belongs_to :user
   belongs_to :parent, class_name: 'IncomeCategory', optional: true
   has_many :subcategories, class_name: 'IncomeCategory', foreign_key: :parent_id, inverse_of: :parent,
                            dependent: :destroy
