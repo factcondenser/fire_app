@@ -3,7 +3,7 @@ class SampleExpense < ApplicationSample
 
   def load
     count.times do
-      create(:expense, user_id: random_id_for(User), category_id: random_id_for(ExpenseCategory))
+      create(:expense, created_by_id: random_id_for(User), category_id: random_id_for(ExpenseCategory))
     end
   end
 end

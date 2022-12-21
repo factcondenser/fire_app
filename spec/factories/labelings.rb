@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :labeling do
-    label
+    association :label, strategy: null
 
     trait :expense do
       labelable factory: :expense

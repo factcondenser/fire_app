@@ -1,9 +1,10 @@
 FactoryBot.define do
   factory :expense do
-    user
-    category factory: :expense_category
+    created_by factory: :user, strategy: :null
+    incurred_by { nil }
+    category { nil }
     amount { Faker::Number.decimal(l_digits: 2) }
     description { Faker::Lorem.sentence }
-    incurred_at { Time.current }
+    incurred_at { nil }
   end
 end

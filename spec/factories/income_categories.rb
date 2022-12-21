@@ -1,10 +1,10 @@
 FactoryBot.define do
   factory :income_category do
-    user
+    association :user, strategy: :null
     name { Faker::Company.name }
 
     trait :with_parent do
-      parent factory: :income_category
+      parent { create(:income_category, user:) }
     end
   end
 end

@@ -29,12 +29,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_17_155442) do
     t.bigint "amount_cents", null: false
     t.string "description", limit: 255
     t.datetime "incurred_at", null: false
-    t.uuid "user_id", null: false
+    t.uuid "created_by_id", null: false
+    t.uuid "incurred_by_id", null: false
     t.uuid "category_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id", "category_id", "incurred_at"], name: "index_expenses_on_user_id_and_category_id_and_incurred_at"
-    t.index ["user_id", "incurred_at"], name: "index_expenses_on_user_id_and_incurred_at"
+    t.index ["created_by_id", "incurred_by_id", "incurred_at", "category_id"], name: "idx_expenses_on_created_by_incurred_by_incurred_at_and_category"
+    t.index ["created_by_id", "incurred_by_id", "updated_at", "category_id"], name: "idx_expenses_on_created_by_incurred_by_updated_at_and_category"
   end
 
   create_table "income_categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -51,12 +52,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_17_155442) do
     t.bigint "amount_cents", null: false
     t.string "description", limit: 255
     t.datetime "incurred_at", null: false
-    t.uuid "user_id", null: false
+    t.uuid "created_by_id", null: false
+    t.uuid "incurred_by_id", null: false
     t.uuid "category_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id", "category_id", "incurred_at"], name: "index_incomes_on_user_id_and_category_id_and_incurred_at"
-    t.index ["user_id", "incurred_at"], name: "index_incomes_on_user_id_and_incurred_at"
+    t.index ["created_by_id", "incurred_by_id", "incurred_at", "category_id"], name: "idx_incomes_on_created_by_incurred_by_incurred_at_and_category"
+    t.index ["created_by_id", "incurred_by_id", "updated_at", "category_id"], name: "idx_incomes_on_created_by_incurred_by_updated_at_and_category"
   end
 
   create_table "labelings", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -88,11 +90,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_17_155442) do
   add_foreign_key "expense_categories", "expense_categories", column: "parent_id"
   add_foreign_key "expense_categories", "users"
   add_foreign_key "expenses", "expense_categories", column: "category_id"
-  add_foreign_key "expenses", "users"
+  add_foreign_key "expenses", "users", column: "created_by_id"
+  add_foreign_key "expenses", "users", column: "incurred_by_id"
   add_foreign_key "income_categories", "income_categories", column: "parent_id"
   add_foreign_key "income_categories", "users"
   add_foreign_key "incomes", "income_categories", column: "category_id"
-  add_foreign_key "incomes", "users"
+  add_foreign_key "incomes", "users", column: "created_by_id"
+  add_foreign_key "incomes", "users", column: "incurred_by_id"
   add_foreign_key "labelings", "labels"
   add_foreign_key "labels", "users"
 end
