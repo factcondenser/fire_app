@@ -2,11 +2,10 @@ class ApplicationSample
   include FactoryBot::Syntax::Methods
 
   DEFAULT_COUNT = 1
-  DEPENDENCIES = [].freeze # TODO: refactor this to class macro
 
   class << self
     def load(count:)
-      abort("ERROR: Loading #{klass.name} samples requires that at least one record exist for each of the following - #{dependencies}") unless valid?
+      abort("ERROR: Loading #{klass.name} samples requires at least one record for each of these - #{instance_variable_get('@deps').map(&:name)}") unless valid?
 
       before = klass.count
       new(count).load
@@ -17,12 +16,12 @@ class ApplicationSample
 
     private
 
-    def valid?
-      dependencies.all? { |dep| dep.constantize.exists? }
+    def dependencies(*deps)
+      instance_variable_set('@deps', deps)
     end
 
-    def dependencies
-      self::DEPENDENCIES
+    def valid?
+      instance_variable_get('@deps').all?(&:exists?)
     end
 
     def klass

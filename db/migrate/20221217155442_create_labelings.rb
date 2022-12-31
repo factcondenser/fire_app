@@ -8,8 +8,6 @@ class CreateLabelings < ActiveRecord::Migration[7.0]
 
       t.index [:labelable_id, :label_id], unique: true
 
-      # t.check_constraint "labelable_type TODO: fill this in", name: 'labelable_type_check'
-
       t.timestamps
     end
   end

@@ -1,5 +1,5 @@
 class SampleIncome < ApplicationSample
-  DEPENDENCIES = %w[User IncomeCategory].freeze
+  dependencies User, IncomeCategory
 
   def load
     count.times do

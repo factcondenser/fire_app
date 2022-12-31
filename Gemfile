@@ -60,6 +60,7 @@ group :development, :test do
   gem 'dotenv-rails', '~> 2.8.1'
   gem 'factory_bot_rails', '~> 6.2.0'
   gem 'faker', '~> 3.0.0'
+  gem 'retriable', '~> 3.1.2'
   gem 'rspec-rails', '~> 6.0.1'
   gem 'shoulda-matchers', '~> 5.3.0'
 end

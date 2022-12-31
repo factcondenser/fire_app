@@ -194,6 +194,7 @@ GEM
     regexp_parser (2.6.1)
     reline (0.3.1)
       io-console (~> 0.5)
+    retriable (3.1.2)
     rexml (3.2.5)
     rspec-core (3.12.0)
       rspec-support (~> 3.12.0)
@@ -278,6 +279,7 @@ DEPENDENCIES
   rack-mini-profiler
   rails (~> 7.0.4)
   redis (~> 4.0)
+  retriable (~> 3.1.2)
   rspec-rails (~> 6.0.1)
   rubocop-rails (~> 2.17.3)
   rubocop-rspec (~> 2.15.0)
