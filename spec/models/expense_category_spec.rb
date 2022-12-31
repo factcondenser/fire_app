@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe ExpenseCategory do
-  subject { create(:expense_category, :with_parent, user: create(:user)) }
+  it_behaves_like 'a colorable'
 
   it { is_expected.to belong_to(:user) }
   it { is_expected.to belong_to(:parent).class_name('ExpenseCategory').optional }
@@ -21,5 +21,10 @@ RSpec.describe ExpenseCategory do
 
   it { is_expected.to validate_length_of(:name).is_at_most(63) }
   it { is_expected.to validate_presence_of(:name) }
-  it { is_expected.to validate_uniqueness_of(:name).scoped_to(%i[user_id parent_id]) }
+
+  context 'with pre-existing record' do
+    subject { create(:expense_category, :with_user) }
+
+    it { is_expected.to validate_uniqueness_of(:name).scoped_to(%i[user_id parent_id]) }
+  end
 end

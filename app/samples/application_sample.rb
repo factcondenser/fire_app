@@ -2,7 +2,7 @@ class ApplicationSample
   include FactoryBot::Syntax::Methods
 
   DEFAULT_COUNT = 1
-  DEPENDENCIES = [].freeze
+  DEPENDENCIES = [].freeze # TODO: refactor this to class macro
 
   class << self
     def load(count:)

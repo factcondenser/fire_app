@@ -10,7 +10,7 @@ class LoginsController < ApplicationController
     @login.email.downcase!
 
     if @login.save
-      redirect_to root_path, notice: 'Login succeeded!'
+      redirect_to root_url, notice: 'Login succeeded!'
     else
       render :new, status: :unprocessable_entity
     end
@@ -19,8 +19,7 @@ class LoginsController < ApplicationController
   def destroy
     @login.destroy
 
-    # TODO: When to use _path vs _url?
-    redirect_to new_login_path, notice: "Logged out!"
+    redirect_to new_login_url, notice: 'Logged out!'
   end
 
   private

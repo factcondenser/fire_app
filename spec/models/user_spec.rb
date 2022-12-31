@@ -12,5 +12,5 @@ RSpec.describe User do
   it { is_expected.to have_many(:incomes_incurred).class_name('Income').with_foreign_key(:incurred_by_id).inverse_of(:incurred_by).dependent(:destroy) }
   it { is_expected.to have_many(:labels).dependent(:destroy) }
   it { is_expected.to validate_presence_of(:email) }
-  it { is_expected.to validate_uniqueness_of(:email) }
+  it { is_expected.to validate_uniqueness_of(:email).case_insensitive }
 end

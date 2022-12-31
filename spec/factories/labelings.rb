@@ -1,13 +1,13 @@
 FactoryBot.define do
   factory :labeling do
-    association :label, strategy: null
+    label { create(:label, :with_user) }
 
     trait :expense do
-      labelable factory: :expense
+      labelable { create(:expense, :with_created_by) }
     end
 
     trait :income do
-      labelable factory: :income
+      labelable { create(:income, :with_created_by) }
     end
   end
 end

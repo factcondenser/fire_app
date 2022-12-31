@@ -50,6 +50,7 @@ gem 'bootsnap', require: false
 
 # Custom
 gem 'money-rails', '~> 1.15.0'
+gem 'nilify_blanks', '~> 1.4.0'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -76,4 +77,9 @@ group :development do
   # Custom
   gem 'rubocop-rails', '~> 2.17.3'
   gem 'rubocop-rspec', '~> 2.15.0'
+end
+
+group :test do
+  # Custom
+  gem 'test-prof', '~> 1.1.0'
 end

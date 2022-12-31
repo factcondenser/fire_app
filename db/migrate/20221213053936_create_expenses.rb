@@ -3,10 +3,12 @@ class CreateExpenses < ActiveRecord::Migration[7.0]
     create_table :expenses, id: :uuid do |t|
       t.integer :amount_cents, null: false, limit: 8
       t.string :description, limit: 255
-      t.datetime :incurred_at, null: false
+      t.datetime :incurred_at, null: false, default: -> { 'CURRENT_TIMESTAMP' }
+
       t.references :created_by, type: :uuid, null: false, foreign_key: { to_table: :users }, index: false
       t.references :incurred_by, type: :uuid, null: false, foreign_key: { to_table: :users }, index: false
       t.references :category, type: :uuid, null: false, foreign_key: { to_table: :expense_categories }, index: false
+
       # These indices cover the following query scenarios:
       # - Expenses I added incurred by me, sort-filterable by incurrance date, last-modified date, or category.
       # - Expenses I added incurred by someone else, sort-filterable by incurrance date, last-modified date, or category.

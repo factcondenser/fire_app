@@ -23,7 +23,7 @@ class UsersController < ApplicationController
     @user.email.downcase!
 
     if @user.save
-      redirect_to root_path, notice: 'Account creation succeeded!'
+      redirect_to root_url, notice: 'Account creation succeeded!'
     else
       render :new, status: :unprocessable_entity
     end
