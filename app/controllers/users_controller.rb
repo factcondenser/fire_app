@@ -1,12 +1,12 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[show edit update destroy]
 
-  # GET /users or /users.json
+  # GET /users
   def index
     @users = User.all
   end
 
-  # GET /users/1 or /users/1.json
+  # GET /users/1
   def show; end
 
   # GET /users/new
@@ -17,32 +17,32 @@ class UsersController < ApplicationController
   # GET /users/1/edit
   def edit; end
 
-  # POST /users or /users.json
+  # POST /users
   def create
     @user = User.new(user_params)
     @user.email.downcase!
 
     if @user.save
-      redirect_to root_url, notice: 'Account creation succeeded!'
+      redirect_to root_url
     else
       render :new, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /users/1 or /users/1.json
+  # PATCH/PUT /users/1
   def update
     if @user.update(user_params)
-      redirect_to user_url(@user), notice: 'User was successfully updated.'
+      redirect_to user_url(@user)
     else
       render :edit, status: :unprocessable_entity
     end
   end
 
-  # DELETE /users/1 or /users/1.json
+  # DELETE /users/1
   def destroy
     @user.destroy
 
-    redirect_to users_url, notice: 'User was successfully destroyed.'
+    redirect_to users_url
   end
 
   private

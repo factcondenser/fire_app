@@ -1,12 +1,12 @@
 class ExpensesController < ApplicationController
   before_action :set_expense, only: %i[show edit update destroy]
 
-  # GET /expenses or /expenses.json
+  # GET /expenses
   def index
     @expenses = Expense.all
   end
 
-  # GET /expenses/1 or /expenses/1.json
+  # GET /expenses/1
   def show; end
 
   # GET /expenses/new
@@ -17,31 +17,31 @@ class ExpensesController < ApplicationController
   # GET /expenses/1/edit
   def edit; end
 
-  # POST /expenses or /expenses.json
+  # POST /expenses
   def create
     @expense = Expense.new(expense_params)
 
     if @expense.save
-      redirect_to expense_url(@expense), notice: 'Expense was successfully created.'
+      redirect_to expense_url(@expense)
     else
       render :new, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /expenses/1 or /expenses/1.json
+  # PATCH/PUT /expenses/1
   def update
     if @expense.update(expense_params)
-      redirect_to expense_url(@expense), notice: 'Expense was successfully updated.'
+      redirect_to expense_url(@expense)
     else
       render :edit, status: :unprocessable_entity
     end
   end
 
-  # DELETE /expenses/1 or /expenses/1.json
+  # DELETE /expenses/1
   def destroy
     @expense.destroy
 
-    redirect_to expenses_url, notice: 'Expense was successfully destroyed.'
+    redirect_to expenses_url
   end
 
   private

@@ -1,12 +1,12 @@
 class LabelsController < ApplicationController
   before_action :set_label, only: %i[show edit update destroy]
 
-  # GET /labels or /labels.json
+  # GET /labels
   def index
     @labels = Label.all
   end
 
-  # GET /labels/1 or /labels/1.json
+  # GET /labels/1
   def show; end
 
   # GET /labels/new
@@ -17,42 +17,31 @@ class LabelsController < ApplicationController
   # GET /labels/1/edit
   def edit; end
 
-  # POST /labels or /labels.json
+  # POST /labels
   def create
     @label = Label.new(label_params)
 
-    respond_to do |format|
-      if @label.save
-        format.html { redirect_to label_url(@label), notice: 'Label was successfully created.' }
-        format.json { render :show, status: :created, location: @label }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @label.errors, status: :unprocessable_entity }
-      end
+    if @label.save
+      redirect_to label_url(@label)
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /labels/1 or /labels/1.json
+  # PATCH/PUT /labels/1
   def update
-    respond_to do |format|
-      if @label.update(label_params)
-        format.html { redirect_to label_url(@label), notice: 'Label was successfully updated.' }
-        format.json { render :show, status: :ok, location: @label }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @label.errors, status: :unprocessable_entity }
-      end
+    if @label.update(label_params)
+      redirect_to label_url(@label)
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
-  # DELETE /labels/1 or /labels/1.json
+  # DELETE /labels/1
   def destroy
     @label.destroy
 
-    respond_to do |format|
-      format.html { redirect_to labels_url, notice: 'Label was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to labels_url
   end
 
   private

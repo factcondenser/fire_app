@@ -1,12 +1,12 @@
 class LabelingsController < ApplicationController
   before_action :set_labeling, only: %i[show edit update destroy]
 
-  # GET /labelings or /labelings.json
+  # GET /labelings
   def index
     @labelings = Labeling.all
   end
 
-  # GET /labelings/1 or /labelings/1.json
+  # GET /labelings/1
   def show; end
 
   # GET /labelings/new
@@ -17,42 +17,31 @@ class LabelingsController < ApplicationController
   # GET /labelings/1/edit
   def edit; end
 
-  # POST /labelings or /labelings.json
+  # POST /labelings
   def create
     @labeling = Labeling.new(labeling_params)
 
-    respond_to do |format|
-      if @labeling.save
-        format.html { redirect_to labeling_url(@labeling), notice: 'Labeling was successfully created.' }
-        format.json { render :show, status: :created, location: @labeling }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @labeling.errors, status: :unprocessable_entity }
-      end
+    if @labeling.save
+      redirect_to labeling_url(@labeling)
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /labelings/1 or /labelings/1.json
+  # PATCH/PUT /labelings/1
   def update
-    respond_to do |format|
-      if @labeling.update(labeling_params)
-        format.html { redirect_to labeling_url(@labeling), notice: 'Labeling was successfully updated.' }
-        format.json { render :show, status: :ok, location: @labeling }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @labeling.errors, status: :unprocessable_entity }
-      end
+    if @labeling.update(labeling_params)
+      redirect_to labeling_url(@labeling)
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
-  # DELETE /labelings/1 or /labelings/1.json
+  # DELETE /labelings/1
   def destroy
     @labeling.destroy
 
-    respond_to do |format|
-      format.html { redirect_to labelings_url, notice: 'Labeling was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to labelings_url
   end
 
   private

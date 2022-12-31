@@ -30,4 +30,36 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  expenses:
+    create:
+      success: 'Expense was successfully created.'
+    update:
+      success: 'Expense was successfully updated.'
+    destroy:
+      success: 'Expense was successfully destroyed.'
+  labelings:
+    create:
+      success: 'Labeling was successfully created.'
+    update:
+      success: 'Labeling was successfully updated.'
+    destroy:
+      success: 'Labeling was successfully destroyed.'
+  labels:
+    create:
+      success: 'Label was successfully created.'
+    update:
+      success: 'Label was successfully updated.'
+    destroy:
+      success: 'Label was successfully destroyed.'
+  logins:
+    create:
+      success: 'Login succeeded!'
+    destroy:
+      success: 'Logged out!'
+  users:
+    create:
+      success: 'Account creation succeeded!'
+    update:
+      success: 'User was successfully updated.'
+    destroy:
+      success: 'User was successfully destroyed.'

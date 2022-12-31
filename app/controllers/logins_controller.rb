@@ -10,7 +10,7 @@ class LoginsController < ApplicationController
     @login.email.downcase!
 
     if @login.save
-      redirect_to root_url, notice: 'Login succeeded!'
+      redirect_to root_url
     else
       render :new, status: :unprocessable_entity
     end
@@ -19,7 +19,7 @@ class LoginsController < ApplicationController
   def destroy
     @login.destroy
 
-    redirect_to new_login_url, notice: 'Logged out!'
+    redirect_to new_login_url
   end
 
   private
